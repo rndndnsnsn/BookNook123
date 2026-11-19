@@ -1,4 +1,4 @@
-<%- include('partials/header', { title }) %> 2
+<%- include('partials/header', { title }) %>
 <section class="book-detail">
 <%- include('partials/cover', { book }) %>
 <div>
@@ -14,7 +14,7 @@
 </p>
 <p><%= book.description %></p>
 </div>
-</section> 19
+</section>
 <% if (user) { %>
 <section class="panels">
 <form action="/progress" method="POST" class="panel">
@@ -31,7 +31,7 @@
 <input type="number" name="current_page" min="0" max="<%= book.pages %>" value="<%= myProgress ? myProgress.current_page : 0 %>">
 </label>
 <button class="btn">Save progress</button>
-</form> 37
+</form>
 <form action="/lists/add-book" method="POST" class="panel">
 <h3>Add to a list</h3>
 <% if (myLists.length === 0) { %>
@@ -48,9 +48,9 @@
 <% } %>
 </form>
 </section>
-<% } %> 55
+<% } %>
 <section>
-<h2>Reviews</h2> 58
+<h2>Reviews</h2>
 <% if (user) { %>
 <form action="/books/<%= book.id %>/review" method="POST" class="panel">
 <h3><%= myReview ? 'Edit your review' : 'Write a review' %></h3>
@@ -71,7 +71,7 @@
 <% } %>
 <% } else { %>
 <p><a href="/login">Log in</a> to write a review.</p>
-<% } %> 80
+<% } %>
 <% reviews.forEach(r => { %>
 <article class="review">
 <p class="rating"><%= stars(r.rating) %></p>
@@ -79,5 +79,5 @@
 <p class="muted"><a href="/u/<%= r.username %>"><%= r.username %></a>, <%= r.created_at.slice(0, 10) %></p>
 </article>
 <% }) %>
-</section> 89
+</section>
 <%- include('partials/footer') %>

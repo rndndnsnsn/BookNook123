@@ -1,8 +1,8 @@
 // seed.js - fills an empty database with sample authors, books and one demo user.
-const bcrypt = require('bcryptjs'); 3
+const bcrypt = require('bcryptjs');
 module.exports = function seed(db) {
 const count = db.prepare('SELECT COUNT(*) AS n FROM authors').get().n;
-if (count > 0) return; // already has data 7
+if (count > 0) return; // already has data
 const authors = [
 ['Gabriel García Márquez', 'Colombian novelist who made magical realism famous. He won the Nobel Prize in Literature in 1982.', 1927, 'Colombia'],
 ['Ismail Kadare', 'Albania\'s best-known writer. His novels often use history and myth to talk about life under dictatorship.', 1936, 'Albania'],
@@ -16,7 +16,7 @@ const authors = [
 ['Mary Shelley', 'English writer who created Frankenstein when she was only eighteen.', 1797, 'United Kingdom']
 ];
 const addAuthor = db.prepare('INSERT INTO authors (name, bio, born, country) VALUES (?, ?, ?, ?)');
-authors.forEach(a => addAuthor.run(...a)); 22
+authors.forEach(a => addAuthor.run(...a));
 // [title, author_id, genre, pages, year, description]
 const books = [
 ['One Hundred Years of Solitude', 1, 'Magical realism', 417, 1967, 'The Buendía family builds a town called Macondo and lives through seven generations of love, war and strange miracles.'],
@@ -37,20 +37,20 @@ const books = [
 ['Frankenstein', 10, 'Gothic', 280, 1818, 'A young scientist brings a creature to life, then runs away from it, and has to face what he has done.']
 ];
 const addBook = db.prepare('INSERT INTO books (title, author_id, genre, pages, year, description) VALUES (?, ?, ?, ?, ?, ?)');
-books.forEach(b => addBook.run(b[0], b[1], b[2], b[3], b[4], b[5])); 44
+books.forEach(b => addBook.run(b[0], b[1], b[2], b[3], b[4], b[5]));
 // A demo account so the site is not empty on first run
 const hash = bcrypt.hashSync('demo123', 10);
 const demoId = db.prepare('INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)')
-.run('demo', 'demo@example.com', hash).lastInsertRowid; 49
+.run('demo', 'demo@example.com', hash).lastInsertRowid;
 const addReview = db.prepare('INSERT INTO reviews (book_id, user_id, rating, text) VALUES (?, ?, ?, ?)');
 addReview.run(6, demoId, 5, 'Scary because it still feels possible. The ending stayed with me for days.');
 addReview.run(4, demoId, 5, 'Funny, quick and full of great arguments. I reread the first chapter twice.');
 addReview.run(14, demoId, 4, 'Slow at the start, but the world is huge. Worth it once the story gets going.');
-addReview.run(2, demoId, 4, 'A small town seen through a child\'s eyes. Very good if you like Albanian history.'); 55
+addReview.run(2, demoId, 4, 'A small town seen through a child\'s eyes. Very good if you like Albanian history.');
 const listId = db.prepare('INSERT INTO lists (user_id, title, description) VALUES (?, ?, ?)')
 .run(demoId, 'Start here: classics', 'Books I would give to anyone who says they never read.').lastInsertRowid;
 const addToList = db.prepare('INSERT INTO list_books (list_id, book_id) VALUES (?, ?)');
-[4, 6, 7, 16].forEach(id => addToList.run(listId, id)); 60
+[4, 6, 7, 16].forEach(id => addToList.run(listId, id));
 db.prepare('INSERT INTO progress (user_id, book_id, status, current_page) VALUES (?, ?, ?, ?)')
 .run(demoId, 14, 'reading', 210);
 };

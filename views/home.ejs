@@ -1,4 +1,4 @@
-<%- include('partials/header', { title }) %> 2
+<%- include('partials/header', { title }) %>
 <section class="hero">
 <h1>Find your next book.<br>Tell others what you read.</h1>
 <p>Read reviews, build reading lists, follow authors and keep track of every page.</p>
@@ -13,7 +13,7 @@
 </div>
 <% }) %>
 </div>
-</section> 18
+</section>
 <section>
 <h2>Top rated books</h2>
 <div class="grid">
@@ -21,7 +21,7 @@
 <%- include('partials/book-card', { book }) %>
 <% }) %>
 </div>
-</section> 27
+</section>
 <section>
 <h2>Latest reviews</h2>
 <% if (latestReviews.length === 0) { %>
@@ -34,5 +34,5 @@
 <p class="muted"><a href="/u/<%= r.username %>"><%= r.username %></a> on <a href="/books/<%= r.book_id %>"><%= r.title %></a></p>
 </article>
 <% }) %>
-</section> 41
+</section>
 <%- include('partials/footer') %>

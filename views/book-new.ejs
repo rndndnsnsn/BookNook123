@@ -1,6 +1,6 @@
-<%- include('partials/header', { title }) %> 2
+<%- include('partials/header', { title }) %>
 <h1>Add a book</h1>
-<% errors.forEach(e => { %><p class="flash flash-error"><%= e %></p><% }) %> 5
+<% errors.forEach(e => { %><p class="flash flash-error"><%= e %></p><% }) %>
 <form action="/books" method="POST" class="panel form-narrow">
 <label>Title <input name="title" value="<%= form.title || '' %>" required></label>
 <label>Author
@@ -15,5 +15,5 @@
 <label>Year published <input type="number" name="year" value="<%= form.year || '' %>"></label>
 <label>Short description <textarea name="description" rows="4"><%= form.description || '' %></textarea></label>
 <button class="btn">Add book</button>
-</form> 21
+</form>
 <%- include('partials/footer') %>

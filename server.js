@@ -3,18 +3,18 @@ const express = require('express');
 const session = require('express-session');
 const path = require('path');
 const db = require('./db');
-require('./seed')(db); 7
+require('./seed')(db);
 const app = express();
-const PORT = process.env.PORT || 3000; 10
+const PORT = process.env.PORT || 3000;
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views')); 13
+app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: false })); // reads form data
 app.use(express.static(path.join(__dirname, 'public'))); // serves css
 app.use(session({
 secret: process.env.SESSION_SECRET || 'dev-secret-change-me',
 resave: false,
 saveUninitialized: false
-})); 21
+}));
 // Runs on every request: makes "user" and flash messages available in all views
 app.use((req, res, next) => {
 res.locals.user = req.session.userId
@@ -23,7 +23,7 @@ res.locals.user = req.session.userId
 res.locals.flash = req.session.flash;
 delete req.session.flash;
 next();
-}); 31
+});
 // Helper functions that views can call
 const COVER_COLORS = ['#2E4A62', '#7A2E3A', '#3B5B3A', '#5A3E6B', '#8A5A2B', '#1F5F66', '#4B4F73', '#6B3F2A'];
 app.locals.coverColor = (title) => {
@@ -35,7 +35,7 @@ app.locals.stars = (n) => {
 const full = Math.round(n || 0);
 return '★'.repeat(full) + '☆'.repeat(5 - full);
 };
-app.locals.statusLabels = { want_to_read: 'Want to read', reading: 'Reading', finished: 'Finished' }; 44
+app.locals.statusLabels = { want_to_read: 'Want to read', reading: 'Reading', finished: 'Finished' };
 // Pages
 app.get('/', (req, res) => {
 const topBooks = db.prepare(`
@@ -54,11 +54,11 @@ JOIN books b ON b.id = r.book_id
 ORDER BY r.created_at DESC, r.id DESC
 LIMIT 4`).all();
 res.render('home', { title: 'Home', topBooks, latestReviews });
-}); 64
+});
 app.use(require('./routes/auth'));
 app.use('/books', require('./routes/books'));
 app.use('/authors', require('./routes/authors'));
 app.use('/lists', require('./routes/lists'));
-app.use('/progress', require('./routes/progress')); 70
-app.use((req, res) => res.status(404).render('404', { title: 'Not found' })); 72
+app.use('/progress', require('./routes/progress'));
+app.use((req, res) => res.status(404).render('404', { title: 'Not found' }));
 app.listen(PORT, () => console.log(`BookNook running at http://localhost:${PORT}`));

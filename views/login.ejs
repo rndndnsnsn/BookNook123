@@ -1,10 +1,10 @@
-<%- include('partials/header', { title }) %> 2
+<%- include('partials/header', { title }) %>
 <h1>Log in</h1>
-<% if (error) { %><p class="flash flash-error"><%= error %></p><% } %> 5
+<% if (error) { %><p class="flash flash-error"><%= error %></p><% } %>
 <form action="/login" method="POST" class="panel form-narrow">
 <label>Username <input name="username" required autofocus></label>
 <label>Password <input type="password" name="password" required></label>
 <button class="btn">Log in</button>
 <p class="muted">New here? <a href="/register">Create an account</a>. To try the site, use demo / demo123.</p>
-</form> 12
+</form>
 <%- include('partials/footer') %>

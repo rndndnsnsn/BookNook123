@@ -1,13 +1,13 @@
-<%- include('partials/header', { title }) %> 2
+<%- include('partials/header', { title }) %>
 <h1><%= author.name %></h1>
 <p class="muted">
 <%= author.country || '' %><% if (author.born) { %>, born <%= author.born %><% } %>
 </p>
-<p class="lead"><%= author.bio || 'No biography yet.' %></p> 8
+<p class="lead"><%= author.bio || 'No biography yet.' %></p>
 <h2>Books by <%= author.name %></h2>
 <div class="grid">
 <% books.forEach(book => { %>
 <%- include('partials/book-card', { book }) %>
 <% }) %>
-</div> 15
+</div>
 <%- include('partials/footer') %>

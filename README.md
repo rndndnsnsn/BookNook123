@@ -1,8 +1,8 @@
-# BookNook - Book Discovery Community 2
+# BookNook - Book Discovery Community
 BookNook is a website where readers discover books, write reviews, build reading lists
-and track their reading progress. It was made as a web development course project. 5
-**Author:** Keida Marku, Epoka University 7
-## Features 9
+and track their reading progress. It was made as a web development course project.
+**Author:** Keida Marku, Epoka University
+## Features
 | Feature | What you can do |
 |---|---|
 | User accounts | Register, log in, log out, public profile page for every user |
@@ -11,29 +11,29 @@ and track their reading progress. It was made as a web development course projec
 | Author profiles | Page for each author with a short bio and all of their books |
 | Reading progress tracker | Mark a book as *want to read*, *reading* or *finished*, save the page you are on and see a progress bar |
 | Discovery | Search by title or author, filter by genre, see top rated books on the home page |
-| Add books | Logged-in users can add books (and new authors) to the community | 19
-## Technologies 21
+| Add books | Logged-in users can add books (and new authors) to the community |
+## Technologies
 - **Node.js + Express** - the web server and routes
 - **SQLite** (`better-sqlite3`) - the database, stored in one file
 - **EJS** - HTML templates rendered on the server
 - **bcryptjs** - password hashing
 - **express-session** - keeps users logged in
-- Plain **HTML and CSS**, almost no JavaScript in the browser 28
-## How to run 30
-You need [Node.js](https://nodejs.org) version 18 or newer. 32
+- Plain **HTML and CSS**, almost no JavaScript in the browser
+## How to run
+You need [Node.js](https://nodejs.org) version 18 or newer.
 ```bash
 git clone <your-repository-url>
 cd booknook
 npm install
 npm start
-``` 39
-Open http://localhost:3000 in your browser. 41
+```
+Open http://localhost:3000 in your browser.
 The first time the server starts it creates the database and fills it with sample books and authors.
-You can log in with the demo account: 44
+You can log in with the demo account:
 - username: `demo`
-- password: `demo123` 47
-Or create your own account on the *Join* page. 49
-## Project structure 51
+- password: `demo123`
+Or create your own account on the *Join* page.
+## Project structure
 ```
 booknook/
 ├── server.js           Starts the app, sets up sessions and connects the routes
@@ -48,27 +48,27 @@ booknook/
 │   └── progress.js     Reading progress tracker
 ├── views/              EJS pages (+ partials/ for header, footer, book cover and book card)
 └── public/style.css    All the styling
-``` 67
-## Database design 69
+```
+## Database design
 ```
 users ──< reviews >── books >── authors
 │                     │
 ├──< lists ──< list_books >──┘
 └──< progress >───────┘
-``` 76
+```
 - `users` - username, email, password hash
 - `authors` - name, bio, birth year, country
 - `books` - title, genre, pages, year, description, author
 - `reviews` - rating (1-5) and text. A `UNIQUE(book_id, user_id)` rule allows one review per user per book
 - `lists` and `list_books` - a many-to-many relation between lists and books
-- `progress` - status and current page for each user and book 83
-## Security notes 85
+- `progress` - status and current page for each user and book
+## Security notes
 - Passwords are hashed with bcrypt, never stored as plain text.
 - All SQL uses prepared statements (`?` placeholders), which prevents SQL injection.
 - EJS escapes output with `<%= %>`, which prevents XSS from reviews and other user text.
 - Users can only edit or delete their own reviews and lists (checked on the server).
-- Set the `SESSION_SECRET` environment variable when running outside of development. 91
-## Possible improvements 93
+- Set the `SESSION_SECRET` environment variable when running outside of development.
+## Possible improvements
 - CSRF protection for forms
 - Book cover images and an edit page for books
 - Following other users and a feed of their reviews

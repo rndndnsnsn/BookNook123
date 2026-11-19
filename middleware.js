@@ -5,5 +5,5 @@ req.session.flash = { type: 'error', text: 'Please log in first.' };
 return res.redirect('/login');
 }
 next();
-} 9
+}
 module.exports = { requireLogin };

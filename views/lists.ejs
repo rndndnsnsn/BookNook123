@@ -1,8 +1,8 @@
-<%- include('partials/header', { title }) %> 2
+<%- include('partials/header', { title }) %>
 <div class="page-head">
 <h1>Reading lists</h1>
 <% if (user) { %><a class="btn" href="/lists/new">New list</a><% } %>
-</div> 7
+</div>
 <% if (lists.length === 0) { %><p class="muted">No lists yet. Create the first one.</p><% } %>
 <div class="list-rows">
 <% lists.forEach(l => { %>
@@ -12,5 +12,5 @@
 <% if (l.description) { %><span><%= l.description %></span><% } %>
 </a>
 <% }) %>
-</div> 18
+</div>
 <%- include('partials/footer') %>
