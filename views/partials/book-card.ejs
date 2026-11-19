@@ -1,0 +1,10 @@
+<a class="book-card" href="/books/<%= book.id %>">
+<%- include('cover', { book }) %>
+<strong><%= book.title %></strong>
+<% if (book.author_name) { %><span class="muted"><%= book.author_name %></span><% } %>
+<% if (book.review_count > 0) { %>
+<span class="rating"><%= stars(book.avg_rating) %> <span class="muted"><%= book.avg_rating %> (<%= book.review_count %>)</span></span>
+<% } else { %>
+<span class="muted">No reviews yet</span>
+<% } %>
+</a>

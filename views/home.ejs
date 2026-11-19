@@ -1,0 +1,38 @@
+<%- include('partials/header', { title }) %> 2
+<section class="hero">
+<h1>Find your next book.<br>Tell others what you read.</h1>
+<p>Read reviews, build reading lists, follow authors and keep track of every page.</p>
+<form action="/books" method="GET" class="search-row">
+<input type="search" name="q" placeholder="Search by title or author" aria-label="Search books">
+<button class="btn">Search</button>
+</form>
+<div class="shelf" aria-hidden="true">
+<% topBooks.slice(0, 6).forEach(book => { %>
+<div class="spine" style="background: <%= coverColor(book.title) %>; height: <%= 120 + (book.title.length * 7) % 60 %>px">
+<span><%= book.title %></span>
+</div>
+<% }) %>
+</div>
+</section> 18
+<section>
+<h2>Top rated books</h2>
+<div class="grid">
+<% topBooks.forEach(book => { %>
+<%- include('partials/book-card', { book }) %>
+<% }) %>
+</div>
+</section> 27
+<section>
+<h2>Latest reviews</h2>
+<% if (latestReviews.length === 0) { %>
+<p class="muted">No reviews yet. Open a book and write the first one.</p>
+<% } %>
+<% latestReviews.forEach(r => { %>
+<article class="review">
+<p class="rating"><%= stars(r.rating) %></p>
+<p><%= r.text %></p>
+<p class="muted"><a href="/u/<%= r.username %>"><%= r.username %></a> on <a href="/books/<%= r.book_id %>"><%= r.title %></a></p>
+</article>
+<% }) %>
+</section> 41
+<%- include('partials/footer') %>

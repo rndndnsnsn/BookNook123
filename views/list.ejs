@@ -1,0 +1,26 @@
+<%- include('partials/header', { title }) %> 2
+<h1><%= list.title %></h1>
+<p class="muted">A list by <a href="/u/<%= list.username %>"><%= list.username %></a></p>
+<% if (list.description) { %><p class="lead"><%= list.description %></p><% } %> 6
+<% if (books.length === 0) { %>
+<p class="muted">This list is empty. Open a book and use "Add to a list".</p>
+<% } %>
+<div class="list-rows">
+<% books.forEach(book => { %>
+<div class="row-card row-flex">
+<a href="/books/<%= book.id %>"><strong><%= book.title %></strong> <span class="muted">by <%= book.author_name %></span></a>
+<% if (isOwner) { %>
+<form action="/lists/<%= list.id %>/remove" method="POST">
+<input type="hidden" name="book_id" value="<%= book.id %>">
+<button class="link-button">Remove</button>
+</form>
+<% } %>
+</div>
+<% }) %>
+</div> 23
+<% if (isOwner) { %>
+<form action="/lists/<%= list.id %>/delete" method="POST" class="spaced">
+<button class="link-button danger">Delete this list</button>
+</form>
+<% } %> 29
+<%- include('partials/footer') %>

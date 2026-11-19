@@ -1,0 +1,38 @@
+<%- include('partials/header', { title }) %> 2
+<h1>My reading</h1> 4
+<% const sections = [['reading', 'Currently reading'], ['want_to_read', 'Want to read'], ['finished', 'Finished']]; %>
+<% sections.forEach(([key, label]) => { %>
+<section>
+<h2><%= label %> <span class="muted">(<%= shelves[key].length %>)</span></h2>
+<% if (shelves[key].length === 0) { %>
+<p class="muted">Nothing here yet. Open a book and save its progress.</p>
+<% } %>
+<% shelves[key].forEach(p => { %>
+<% const percent = Math.round((p.current_page / p.pages) * 100); %>
+<div class="row-card">
+<div class="row-flex">
+<a href="/books/<%= p.book_id %>"><strong><%= p.title %></strong> <span class="muted">by <%= p.author_name %></span></a>
+<form action="/progress/<%= p.book_id %>/delete" method="POST"><button class="link- button">Remove</button></form>
+</div>
+<div class="bar" role="progressbar" aria-valuenow="<%= percent %>" aria-valuemin="0" aria- valuemax="100">
+<div class="bar-fill" style="width: <%= percent %>%"></div>
+</div>
+<p class="muted"><%= p.current_page %> of <%= p.pages %> pages (<%= percent %>%)</p>
+<% if (key === 'reading') { %>
+<form action="/progress" method="POST" class="inline-form">
+<input type="hidden" name="book_id" value="<%= p.book_id %>">
+<input type="hidden" name="status" value="reading">
+<label>Page <input type="number" name="current_page" min="0" max="<%= p.pages %>" value="<%= p.current_page %>"></label>
+<button class="btn btn-small">Update</button>
+</form>
+<form action="/progress" method="POST" class="inline-form">
+<input type="hidden" name="book_id" value="<%= p.book_id %>">
+<input type="hidden" name="status" value="finished">
+<button class="btn btn-small btn-quiet">Mark as finished</button>
+</form>
+<% } %>
+</div>
+<% }) %>
+</section>
+<% }) %> 40
+<%- include('partials/footer') %>

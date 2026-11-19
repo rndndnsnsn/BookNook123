@@ -1,0 +1,3 @@
+BookNook source extracted from the supplied PDF.
+Upload the contents of this folder to your GitHub repository.
+Do not upload node_modules, .env, or the generated SQLite database.

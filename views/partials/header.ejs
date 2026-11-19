@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= title %> | BookNook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="site-header">
+<a class="logo" href="/">BookNook</a>
+<nav>
+<a href="/books">Books</a>
+<a href="/authors">Authors</a>
+<a href="/lists">Lists</a>
+<% if (user) { %>
+<a href="/progress">My reading</a>
+<a href="/u/<%= user.username %>"><%= user.username %></a>
+<form action="/logout" method="POST" class="inline"><button class="link-button">Log out</button></form>
+<% } else { %>
+<a href="/login">Log in</a>
+<a class="btn btn-small header-btn" href="/register">Join</a>
+<% } %>
+</nav>
+</header>
+<main>
+<% if (flash) { %>
+<p class="flash flash-<%= flash.type %>"><%= flash.text %></p>
+<% } %>

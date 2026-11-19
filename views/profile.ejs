@@ -1,0 +1,22 @@
+<%- include('partials/header', { title }) %> 2
+<h1><%= profile.username %></h1>
+<p class="muted">Member since <%= profile.created_at.slice(0, 10) %>. Finished <%= finished %> book<%= finished === 1 ? '' : 's' %>.</p> 5
+<h2>Reading lists</h2>
+<% if (lists.length === 0) { %><p class="muted">No lists yet.</p><% } %>
+<div class="list-rows">
+<% lists.forEach(l => { %>
+<a class="row-card" href="/lists/<%= l.id %>">
+<strong><%= l.title %></strong>
+<span class="muted"><%= l.book_count %> book<%= l.book_count === 1 ? '' : 's' %></span>
+</a>
+<% }) %>
+</div> 16
+<h2>Reviews</h2>
+<% if (reviews.length === 0) { %><p class="muted">No reviews yet.</p><% } %>
+<% reviews.forEach(r => { %>
+<article class="review">
+<p><a href="/books/<%= r.book_id %>"><strong><%= r.title %></strong></a> <span class="rating"><%= stars(r.rating) %></span></p>
+<% if (r.text) { %><p><%= r.text %></p><% } %>
+</article>
+<% }) %> 25
+<%- include('partials/footer') %>

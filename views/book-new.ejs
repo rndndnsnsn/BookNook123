@@ -1,0 +1,19 @@
+<%- include('partials/header', { title }) %> 2
+<h1>Add a book</h1>
+<% errors.forEach(e => { %><p class="flash flash-error"><%= e %></p><% }) %> 5
+<form action="/books" method="POST" class="panel form-narrow">
+<label>Title <input name="title" value="<%= form.title || '' %>" required></label>
+<label>Author
+<input name="author" list="author-list" value="<%= form.author || '' %>" required>
+<datalist id="author-list"><% authors.forEach(a => { %><option value="<%= a.name %>"><% }) %></datalist>
+</label>
+<label>About the author (only needed for a new author)
+<textarea name="author_bio" rows="2"><%= form.author_bio || '' %></textarea>
+</label>
+<label>Genre <input name="genre" value="<%= form.genre || '' %>" placeholder="Fiction, Mystery, Classic..." required></label>
+<label>Pages <input type="number" name="pages" min="1" value="<%= form.pages || '' %>" required></label>
+<label>Year published <input type="number" name="year" value="<%= form.year || '' %>"></label>
+<label>Short description <textarea name="description" rows="4"><%= form.description || '' %></textarea></label>
+<button class="btn">Add book</button>
+</form> 21
+<%- include('partials/footer') %>

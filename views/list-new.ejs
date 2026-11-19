@@ -1,0 +1,9 @@
+<%- include('partials/header', { title }) %> 2
+<h1>New reading list</h1>
+<% if (error) { %><p class="flash flash-error"><%= error %></p><% } %> 5
+<form action="/lists" method="POST" class="panel form-narrow">
+<label>Title <input name="title" value="<%= form.title || '' %>" placeholder="Books for a rainy weekend" required></label>
+<label>Description <textarea name="description" rows="3"><%= form.description || '' %></textarea></label>
+<button class="btn">Create list</button>
+</form> 11
+<%- include('partials/footer') %>

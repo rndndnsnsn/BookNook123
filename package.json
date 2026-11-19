@@ -1,0 +1,19 @@
+{
+"name": "booknook",
+"version": "1.0.0",
+"description": "BookNook - a book discovery community website",
+"main": "server.js",
+"scripts": {
+"start": "node server.js"
+},
+"keywords": [],
+"author": "Keida Marku",
+"license": "MIT",
+"dependencies": {
+"bcryptjs": "^3.0.3",
+"better-sqlite3": "^13.2.0",
+"ejs": "^7.0.2",
+"express": "^5.3.0",
+"express-session": "^1.19.0"
+}
+}

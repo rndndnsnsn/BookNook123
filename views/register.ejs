@@ -1,0 +1,11 @@
+<%- include('partials/header', { title }) %> 2
+<h1>Create your account</h1>
+<% errors.forEach(e => { %><p class="flash flash-error"><%= e %></p><% }) %> 5
+<form action="/register" method="POST" class="panel form-narrow">
+<label>Username <input name="username" value="<%= form.username || '' %>" required></label>
+<label>Email <input type="email" name="email" value="<%= form.email || '' %>" required></label>
+<label>Password (6 or more characters) <input type="password" name="password" required></label>
+<button class="btn">Join BookNook</button>
+<p class="muted">Already a member? <a href="/login">Log in</a>.</p>
+</form> 13
+<%- include('partials/footer') %>

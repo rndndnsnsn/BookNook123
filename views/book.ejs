@@ -1,0 +1,83 @@
+<%- include('partials/header', { title }) %> 2
+<section class="book-detail">
+<%- include('partials/cover', { book }) %>
+<div>
+<h1><%= book.title %></h1>
+<p>by <a href="/authors/<%= book.author_id %>"><%= book.author_name %></a></p>
+<p class="muted"><%= book.genre %>, <%= book.pages %> pages<% if (book.year) { %>, first published <%= book.year %><% } %></p>
+<p class="rating">
+<% if (book.review_count > 0) { %>
+<%= stars(book.avg_rating) %> <%= book.avg_rating %> from <%= book.review_count %> review<%= book.review_count === 1 ? '' : 's' %>
+<% } else { %>
+<span class="muted">No reviews yet</span>
+<% } %>
+</p>
+<p><%= book.description %></p>
+</div>
+</section> 19
+<% if (user) { %>
+<section class="panels">
+<form action="/progress" method="POST" class="panel">
+<h3>Reading progress</h3>
+<input type="hidden" name="book_id" value="<%= book.id %>">
+<label>Status
+<select name="status">
+<% Object.entries(statusLabels).forEach(([value, label]) => { %>
+<option value="<%= value %>" <%= myProgress && myProgress.status === value ? 'selected' : '' %>><%= label %></option>
+<% }) %>
+</select>
+</label>
+<label>Current page (of <%= book.pages %>)
+<input type="number" name="current_page" min="0" max="<%= book.pages %>" value="<%= myProgress ? myProgress.current_page : 0 %>">
+</label>
+<button class="btn">Save progress</button>
+</form> 37
+<form action="/lists/add-book" method="POST" class="panel">
+<h3>Add to a list</h3>
+<% if (myLists.length === 0) { %>
+<p class="muted">You have no lists yet.</p>
+<a class="btn" href="/lists/new">Create a list</a>
+<% } else { %>
+<input type="hidden" name="book_id" value="<%= book.id %>">
+<label>List
+<select name="list_id">
+<% myLists.forEach(l => { %><option value="<%= l.id %>"><%= l.title %></option><% }) %>
+</select>
+</label>
+<button class="btn">Add to list</button>
+<% } %>
+</form>
+</section>
+<% } %> 55
+<section>
+<h2>Reviews</h2> 58
+<% if (user) { %>
+<form action="/books/<%= book.id %>/review" method="POST" class="panel">
+<h3><%= myReview ? 'Edit your review' : 'Write a review' %></h3>
+<label>Rating
+<select name="rating">
+<% for (let i = 5; i >= 1; i--) { %>
+<option value="<%= i %>" <%= myReview && myReview.rating === i ? 'selected' : '' %>><%= i %> - <%= stars(i) %></option>
+<% } %>
+</select>
+</label>
+<label>Your thoughts
+<textarea name="text" rows="4" maxlength="1000"><%= myReview ? myReview.text : '' %></textarea>
+</label>
+<button class="btn">Save review</button>
+</form>
+<% if (myReview) { %>
+<form action="/books/<%= book.id %>/review/delete" method="POST"><button class="link- button">Delete my review</button></form>
+<% } %>
+<% } else { %>
+<p><a href="/login">Log in</a> to write a review.</p>
+<% } %> 80
+<% reviews.forEach(r => { %>
+<article class="review">
+<p class="rating"><%= stars(r.rating) %></p>
+<% if (r.text) { %><p><%= r.text %></p><% } %>
+<p class="muted"><a href="/u/<%= r.username %>"><%= r.username %></a>, <%= r.created_at.slice(0, 10) %></p>
+</article>
+<% }) %>
+</section> 89
+<%- include('partials/footer') %>

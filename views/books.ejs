@@ -1,0 +1,24 @@
+<%- include('partials/header', { title }) %> 2
+<div class="page-head">
+<h1>Books</h1>
+<% if (user) { %><a class="btn" href="/books/new">Add a book</a><% } %>
+</div> 7
+<form action="/books" method="GET" class="search-row">
+<input type="search" name="q" value="<%= q %>" placeholder="Search by title or author" aria- label="Search books">
+<select name="genre" aria-label="Genre">
+<option value="">All genres</option>
+<% genres.forEach(g => { %>
+<option value="<%= g.genre %>" <%= g.genre === genre ? 'selected' : '' %>><%= g.genre %></option>
+<% }) %>
+</select>
+<button class="btn">Search</button>
+</form> 18
+<% if (books.length === 0) { %>
+<p class="muted">No books match your search. Try different words, or add the book yourself.</p>
+<% } %>
+<div class="grid">
+<% books.forEach(book => { %>
+<%- include('partials/book-card', { book }) %>
+<% }) %>
+</div> 27
+<%- include('partials/footer') %>

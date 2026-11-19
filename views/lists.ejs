@@ -1,0 +1,16 @@
+<%- include('partials/header', { title }) %> 2
+<div class="page-head">
+<h1>Reading lists</h1>
+<% if (user) { %><a class="btn" href="/lists/new">New list</a><% } %>
+</div> 7
+<% if (lists.length === 0) { %><p class="muted">No lists yet. Create the first one.</p><% } %>
+<div class="list-rows">
+<% lists.forEach(l => { %>
+<a class="row-card" href="/lists/<%= l.id %>">
+<strong><%= l.title %></strong>
+<span class="muted">by <%= l.username %>, <%= l.book_count %> book<%= l.book_count === 1 ? '' : 's' %></span>
+<% if (l.description) { %><span><%= l.description %></span><% } %>
+</a>
+<% }) %>
+</div> 18
+<%- include('partials/footer') %>
